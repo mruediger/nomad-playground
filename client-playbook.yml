@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: yes
+  become_method: sudo
+  vars:
+    consul:
+      version: 1.7.2
+    nomad:
+      version: 0.12.1
+  roles:
+    - role: docker
+    - role: consul
+    - role: nomad

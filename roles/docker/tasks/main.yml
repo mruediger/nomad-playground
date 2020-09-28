@@ -1,0 +1,32 @@
+- name: ubuntu docker removed
+  apt:
+    state: absent
+    name:
+      - docker
+      - docker-engine
+      - docker.io
+
+- name: docker dependencies installed
+  apt:
+    state: latest
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+
+- name: docker repo key installed
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: docker repository installed
+  apt_repository:
+    repo: deb https://download.docker.com/linux/debian stretch stable
+    state: present
+
+- name: docker installed
+  apt: name=docker-ce state=latest
+
+- name: docker running
+  service: name=docker state=started

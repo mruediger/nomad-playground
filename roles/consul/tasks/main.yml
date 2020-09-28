@@ -1,0 +1,25 @@
+---
+- name: unzip installed
+  apt:
+    state: latest
+    name: unzip
+
+- name: download consul
+  unarchive:
+    src: https://releases.hashicorp.com/consul/{{consul.version}}/consul_{{consul.version}}_linux_amd64.zip
+    dest: /usr/local/bin
+    remote_src: yes
+
+- name: consul systemd setup
+  template:
+    src: consul.service
+    dest: /etc/systemd/system/consul.service
+  register: consul_service
+
+- name: consul service enabled
+  systemd:
+    name: consul
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+  when: consul_service.changed

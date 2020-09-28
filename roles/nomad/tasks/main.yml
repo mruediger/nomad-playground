@@ -1,0 +1,11 @@
+---
+- name: unzip installed
+  apt:
+    state: latest
+    name: unzip
+
+- name: download nomad
+  unarchive:
+    src: https://releases.hashicorp.com/nomad/{{nomad.version}}/nomad_{{nomad.version}}_linux_amd64.zip
+    dest: /usr/local/bin
+    remote_src: yes
