@@ -72,23 +72,23 @@ Vagrant.configure(2) do |config|
     vb.memory = "1024"
   end
 
-  config.vm.define :server do |server|
-    server.vm.hostname = "server"
-    server.vm.network "forwarded_port", guest: 4646, host: 4646, auto_correct: true, host_ip: "127.0.0.1"
-
-    server.vm.provision "ansible" do |ansible|
-      ansible.playbook = "server-playbook.yml"
-    end
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "playbook.yml"
+    ansible.extra_vars = {
+      server_ip: "172.23.23.2"
+    }
   end
 
+  config.vm.define :server do |server|
+    server.vm.hostname = "server"
+#    server.vm.network "forwarded_port", guest: 4646, host: 4646, auto_correct: true, host_ip: "127.0.0.1"
+    server.vm.network "private_network", ip: "172.23.23.2"
+  end
 
   (1..2).each do |i|
     config.vm.define "client-#{i}" do |client|
       client.vm.hostname = "client-#{i}"
-      client.vm.provision "ansible" do |ansible|
-        # Disable default limit to connect to all the machines in parallel
-        ansible.playbook = "client-playbook.yml"
-      end
+      client.vm.network "private_network", ip: "172.23.23.#{i+2}"
     end
   end
 end

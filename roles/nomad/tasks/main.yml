@@ -9,3 +9,25 @@
     src: https://releases.hashicorp.com/nomad/{{nomad.version}}/nomad_{{nomad.version}}_linux_amd64.zip
     dest: /usr/local/bin
     remote_src: yes
+
+- name: nomad setup
+  template:
+    src: nomad.hcl.j2
+    dest: /etc/nomad.hcl
+    mode: 0600
+  register: nomad_service
+
+- name: nomad systemd setup
+  template:
+    src: nomad.service
+    dest: /etc/systemd/system/nomad.service
+    mode: 0600
+  register: nomad_service
+
+- name: nomad service enabled
+  systemd:
+    name: nomad
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+  when: nomad_service.changed

@@ -14,6 +14,7 @@
   template:
     src: consul.service
     dest: /etc/systemd/system/consul.service
+    mode: 0600
   register: consul_service
 
 - name: consul service enabled

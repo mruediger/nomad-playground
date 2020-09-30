@@ -5,7 +5,11 @@ After=network-online.target
 
 [Service]
 Restart=on-failure
-ExecStart=//usr/local/bin/consul agent -dev
+{% if consul.server | default(false) %}
+ExecStart=//usr/local/bin/consul agent -server -data-dir=/tmp/consul -bind={{eth1.ipv4.address}} -bootstrap-expect=1 -bootstrap
+{% else %}
+ExecStart=//usr/local/bin/consul agent -data-dir=/tmp/consul -bind={{eth1.ipv4.address}} -join={{server_ip}}
+{% endif %}
 ExecReload=/bin/kill -HUP $MAINPID
 
 [Install]

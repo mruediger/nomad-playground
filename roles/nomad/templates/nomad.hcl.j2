@@ -1,0 +1,21 @@
+log_level = "DEBUG"
+name = "{{ ansible_hostname }}"
+data_dir = "/tmp/nomad"
+
+advertise {
+  http = "{{eth1.ipv4.address}}"
+  rpc  = "{{eth1.ipv4.address}}"
+  serf = "{{eth1.ipv4.address}}"
+}
+
+
+client {
+  enabled = {{ nomad.client | bool | lower }}
+}
+
+{% if nomad.server %}
+server {
+  enabled = {{ nomad.server | bool | lower }}
+  bootstrap_expect = 1
+}
+{% endif %}
