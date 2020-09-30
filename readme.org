@@ -1,0 +1,23 @@
+* Getting Started:
+https://learn.hashicorp.com/collections/nomad/get-started
+
+nomad status example
+
+* Vagrant Multi Machine
+
+
+* Versions:
+#+BEGIN_SRC sh :dir /ssh:dsp-01.node.dsp.allianz|sudo:root@dsp-01.node.dsp.allianz:/home/ubuntu/
+consul --version
+#+END_SRC
+
+#+RESULTS:
+| Consul v1.3.0                |                                                                                                  |
+| Protocol 2 spoken by default | understands 2 to 3 (agent will automatically use protocol >2 when speaking to compatible agents) |
+
+#+BEGIN_SRC sh :dir /ssh:dsp-01.node.dsp.allianz|sudo:root@dsp-01.node.dsp.allianz:/home/ubuntu/
+nomad --version
+#+END_SRC
+
+#+RESULTS:
+: Nomad v0.8.3+ent (ab6f867b048c6aa15052f788a2f02d48fbe2f9fe)
