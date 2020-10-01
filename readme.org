@@ -1,23 +1,21 @@
 * Getting Started:
+
+** Start VMs
+
+The VMs are created automatically by Vagrant. The provisioning is handled by ansible. Everything should be up an running after you type:
+
+#+BEGIN_SRC sh
+vagrant up
+#+END_SRC
+
+** SSH into VMs
+
+There are 3 different VMs created by Vagrant, called `server`, `client-1` and `client-2`
+
+#+BEGIN_SRC
+vagrant ssh client-1
+#+END_SRC
+
+
+* Getting Started with Nomad:
 https://learn.hashicorp.com/collections/nomad/get-started
-
-nomad status example
-
-* Vagrant Multi Machine
-
-
-* Versions:
-#+BEGIN_SRC sh :dir /ssh:dsp-01.node.dsp.allianz|sudo:root@dsp-01.node.dsp.allianz:/home/ubuntu/
-consul --version
-#+END_SRC
-
-#+RESULTS:
-| Consul v1.3.0                |                                                                                                  |
-| Protocol 2 spoken by default | understands 2 to 3 (agent will automatically use protocol >2 when speaking to compatible agents) |
-
-#+BEGIN_SRC sh :dir /ssh:dsp-01.node.dsp.allianz|sudo:root@dsp-01.node.dsp.allianz:/home/ubuntu/
-nomad --version
-#+END_SRC
-
-#+RESULTS:
-: Nomad v0.8.3+ent (ab6f867b048c6aa15052f788a2f02d48fbe2f9fe)
